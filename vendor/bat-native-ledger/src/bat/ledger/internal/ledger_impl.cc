@@ -769,4 +769,8 @@ void LedgerImpl::Shutdown(ledger::ResultCallback callback) {
   });
 }
 
+void LedgerImpl::GetEventLogs(ledger::GetEventLogsCallback callback) {
+  database()->GetLastEventLogs(callback);
+}
+
 }  // namespace bat_ledger

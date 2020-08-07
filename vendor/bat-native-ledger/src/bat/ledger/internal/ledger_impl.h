@@ -334,6 +334,8 @@ class LedgerImpl : public ledger::Ledger {
 
   void Shutdown(ledger::ResultCallback callback) override;
 
+  void GetEventLogs(ledger::GetEventLogsCallback callback) override;
+
   // end ledger.h
 
   ledger::LedgerClient* ledger_client_;
