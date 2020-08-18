@@ -1,5 +1,5 @@
 diff --git a/chrome/tools/build/win/create_installer_archive.py b/chrome/tools/build/win/create_installer_archive.py
-index ffbf9ec0727b9a81eb4b8488ae67b797ec81a437..8d9052c3f6b6e068c5409d695362f187c142382a 100755
+index ffbf9ec0727b9a81eb4b8488ae67b797ec81a437..195f0535040fc8797820e1f63cca2bc903a70886 100755
 --- a/chrome/tools/build/win/create_installer_archive.py
 +++ b/chrome/tools/build/win/create_installer_archive.py
 @@ -42,6 +42,7 @@ SETUP_PATCH_FILE_PREFIX = "setup_patch"
@@ -27,15 +27,31 @@ index ffbf9ec0727b9a81eb4b8488ae67b797ec81a437..8d9052c3f6b6e068c5409d695362f187
           prev_archive_file,
           'Chrome-bin/*/chrome.dll',]
    RunSystemCommand(cmd, options.verbose)
-@@ -551,6 +553,7 @@ def main(options):
+@@ -341,6 +343,11 @@ def PrepareSetupExec(options, current_version, prev_version):
+     setup_file = SETUP_PATCH_FILE_PREFIX + '_' + current_version + \
+                  '_from_' + prev_version + COMPRESSED_FILE_EXT
+     setup_file_path = os.path.join(options.build_dir, setup_file)
++
++    print "PJ PJ PJ"
++    print setup_file_path
++    print os.listdir(options.build_dir)
++
+     CompressUsingLZMA(options.build_dir, setup_file_path, patch_file,
+                       options.verbose)
+   else:
+@@ -551,6 +558,11 @@ def main(options):
    if prev_version:
      version_numbers = prev_version.split('.')
      prev_build_number = version_numbers[2] + '.' + version_numbers[3]
++  print options.outputdir
++  print staging_dir
++  print os.listdir(options.outputdir) 
++  print os.listdir(staging_dir)
 +  SignAndCopyPreSignedBinaries(options.skip_signing, options.output_dir, staging_dir, current_version)
  
    # Name of the archive file built (for example - chrome.7z or
    # patch-<old_version>-<new_version>.7z or patch-<new_version>.7z
-@@ -622,6 +625,7 @@ def _ParseOptions():
+@@ -622,6 +634,7 @@ def _ParseOptions():
             'with the installer archive {x86|x64}.')
    parser.add_option('-v', '--verbose', action='store_true', dest='verbose',
                      default=False)
